@@ -1,0 +1,227 @@
+.mybox {
+  padding: 0 8%;
+}
+
+
+.breadcrumb:before{
+  color: black !important;
+}
+
+.myboxup{
+  padding: 30px 8%;
+}
+
+.mylink:hover{
+  color: #51cccc !important;
+}
+
+
+.bigfont{
+  font-size: 50px !important;
+}
+
+.crossword
+{
+  text-decoration-line: line-through;
+}
+
+.forlistp{
+	  font-size: 12px !important;
+	  font-family: basic;
+      letter-spacing: 2px;
+      text-decoration-line: line-through;
+      color: #8bc34a ;
+}
+
+.card_img_s{
+  max-height: 400px !important;
+  overflow: hidden;
+}
+
+.card_img_m{
+  max-height: 500px !important;
+  overflow: hidden;
+}
+
+.card_img_l{
+  max-height: 600px !important;
+  overflow: hidden;
+}
+
+.mysmallfont{
+  font-size: 15px !important;
+}
+
+.myvsmallfont{
+  font-size: 12px !important;
+}
+
+
+.mycolor-text{
+  color: #fdd835 !important;
+}
+
+.mycolor{
+  background-color:#51cccc !important;
+}
+
+.toast
+{
+  color: black !important;
+  background-color: #ffa000;
+  
+}
+
+.navheight{
+  height: 50px !important;
+}
+
+.modelclose{
+  background-color: #51cccc;
+}
+
+.indicator{
+  background-color: #fdd835 !important;
+}
+
+.activetab{
+  font-size: 20px !important;
+}
+
+.mynavbox{
+  padding: 0 5%;
+}
+
+.myicon{
+  height: 50px !important;
+  line-height: 50px !important;
+}
+
+.myiconextra{
+  height: 50px !important;
+  line-height: 30px !important;
+}
+
+.cardimg{
+  max-height: 420px !important;
+  overflow: hidden;
+}
+
+.navcontentleft{
+  margin-left: 25%;
+}
+
+@font-face
+{
+font-family: heading;
+src: url('../fonts/heading/PIZZADUDEFATOUTLINE.ttf');
+}
+
+.smallHed{
+  font-size: 2vw !important;
+  font-weight: 10px !important;
+}
+
+@font-face
+{
+font-family: basic;
+src: url('../fonts/InFormal_Style_Regular.otf');
+}
+
+.carouselheight{
+  max-height: 80vh !important;
+}
+
+@font-face
+{
+font-family: subh;
+src: url('../fonts/dope-jam/DOPEJAM.TTF');
+}
+
+
+.Heading{
+  font-family: heading;
+}
+
+.basic{
+  font-family: basic;
+  font-size: 20px;
+  letter-spacing: 2px;
+}
+.SUBH
+{
+  font-family: subh;
+  font-size: 30px;
+  text-align: center;
+}
+
+.upperslot{
+  padding: 2px 8% !important;
+  margin: 0 !important;
+  background-color: azure;
+}
+
+.sizing {
+  height: 50px !important;
+}
+
+nav {
+  line-height: 50px !important;
+}
+
+.extratab{
+  margin: 0 !important;
+}
+
+.section-search input {
+  padding: 0px 15px !important;
+  font-size: 18px !important;
+  width: 90% !important;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+.section-search {
+  padding: 20px 0 0 0 !important;
+}
+
+.autocomplete-content {
+  position: absolute;
+  width: 100%;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  text-align: center;
+}
+
+.mysection {
+  padding: 8px 0 0 0;
+}
+
+.ficons {
+  margin: 0 20px !important;
+}
+
+.responsive-img {
+  margin-bottom: 20px !important;
+}
+
+input,
+textarea {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  letter-spacing: 3px;
+}
+
+h4,
+h5,
+h3,
+h2,
+h1 {
+  letter-spacing: 2px;
+}
+
+footer .row {
+  margin-bottom: 0px !important;
+}
+
+.loader {
+  position: absolute;
+  top: 40%;
+  left: 47%;
+}

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html xmlns:th = "https://www.w3.org/1999/xhtml">
+
+<head th:replace = "commonpart/header::common-header" />
+<body th:classappend = "${emailsent}?emailsent">
+   <div th:replace = "commonpart/header::Navbar" >
+    </div>
+ 
+   <form th:action = "@{/shoppingCart/addItem}" method="get">
+   <input hidden = "hidden" name = "id" th:field="*{menitem.id}" />
+   
+   <div th:if = "${addBookSuccess}" class="mybox basic red animated flush">
+               Item added to bag
+   </div>
+   
+   <div th:if = "${notEnoughStock}" class="mybox basic red animated flush">
+              not in the stock , SORRY
+   </div>
+   
+    <section class="section">
+      <div class="myboxup">
+          <div class="row">
+              <div class="col m6 l6">
+                    <div class="card z-depth-0">
+                            <div class="card-image card_img_l onhover">
+                              <img th:src= "#{adminPortal} + '/' + @{image/men/} + ${menitem.id} + '.png'" />
+                            </div>
+                     </div>
+                </div>
+              <div class="col m6 l6">
+                            <h1 class="basic mysmallfont" style="margin: 12px !important;" th:text = "${menitem.title}"></h1>
+                            <span class="basic bigfont" style="margin:12px 0 0 12px !important;" th:text = "'&#x20B9;'+${#numbers.formatDecimal(menitem.ourPrice,0,'COMMA',0,'POINT')}"></span>
+                            <p class="basic crossword light-green-text lighten-3" style="margin: 0 0 0 20px !important;line-height: 0 !important;" th:text = "${#numbers.formatDecimal(menitem.listPrice,0,'COMMA',0,'POINT')}"></p>  
+                            <p class="basic myvsmallfont" style="margin: 20px 0 0 20px !important;">Inclusive of all taxes </p>          
+                            <p class="basic mysmallfont" style="margin: 40px 0 0 20px !important;" th:text="${menitem.colorcode}"></p>   
+                            <i class="material-icons red-text" style="margin: 5px 0 0 16px !important;">brightness_1</i>   
+                            <div class="input-field" style="margin: 30px 0 0 16px !important;">
+                                    <select name = "size" id = "sizee"  required="required" class="validate">
+                                      <option value=""  disabled selected>Choose Sizes</option>
+                                      <option th:each = "size : ${sizelist}" th:value = "${size}" th:text = "${size}"></option>
+                                    </select>
+                                    <label>Available Sizes</label>
+                                  </div>
+                               
+                             <div class="input-field" style="margin: 30px 0 0 16px !important;">
+                                    <select name = "qnty" id = "qntyy"  required="required" class="validate">
+                                      <option value=""  disabled selected>Choose Quntity</option>
+                                      <option th:each = "qnty : ${qntylist}" th:value = "${qnty}" th:text = "${qnty}"></option>
+                                    </select>
+                                    <label>Available Sizes</label>
+                                  </div>
+                                  
+                              <p th:if = "*{menitem.inStockNumber&gt;10 or menitem.inStockNumber==10}" class="basic myvsmallfont" style="margin: 40px 0 0 20px !important;">In Stock</p>         
+                               <p th:if = "*{menitem.inStockNumber&lt;10 and menitem.inStockNumber&gt;0}" class="basic myvsmallfont" style="margin: 40px 0 0 20px !important;" th:text = " 'only ' + ${menitem.inStockNumber} + 'In Stock'" ></p>  
+                                <p th:if = "*{menitem.inStockNumber==0}" class="basic myvsmallfont" style="margin: 40px 0 0 20px !important;">Not Available</p>
+                             <div style="margin: 0 0 0 16px !important;">
+                                    <button type = "submit" th:classappend = "*{menitem.inStockNumber==0}?disabled" class="submitbtn waves-effect waves-light btn mycolor basic">ADD TO BAG</button>
+                             </div>   
+                             <p class="basic" style="margin: 40px 0 0 20px !important;">15 DAY RETURNS</p><hr/>
+                             <p class="basic myvsmallfont" style="margin: 20px 0 0 20px !important;">If you arent satisfied with this product, return it for a refund.</p>
+                             
+              </div>
+          </div>
+      </div>
+  </section>
+   
+   
+   
+   
+   </form>
+ 
+
+  <div th:replace =  "commonpart/header::bottom-body-scripts" ></div>
+  <script>    
+  $(document).ready(function(){ 
+    $('.carousel.carousel-slider').carousel({fullWidth: true});
+    $('.carousel').carousel({
+    padding: 200    
+   });
+   $('.modal').modal();
+   $('body').click(function() {
+      $('.searchinput').val("");
+   });
+
+   $('.onhover').hover(function(){
+     $(this).addClass('z-depth-4');
+   }).mouseleave(function(){
+     $(this).removeClass('z-depth-4');
+   });
+   
+   $("select[required]").css({display: "block", height: 0, padding: 0, width: 0, position: 'absolute'});
+   
+   $('input').focus(function() {
+	     $('.flash').addClass('hide');
+	   });
+   
+  // $('#email1').focus(function() {
+	   //  $('.flash').addClass('hide');
+	 //  });
+
+    $(document).ready(function() {
+    $('select').material_select();
+  });
+      
+  
+ $('.dropdown-button').dropdown({
+      inDuration: 300,
+      outDuration: 225,
+      constrainWidth: false, // Does not change width of dropdown to that of the activator
+      hover: true, // Activate on hover
+      gutter: 0, // Spacing from edge
+      belowOrigin: true, // Displays dropdown below the button
+      alignment: 'left', // Displays dropdown with edge aligned to the left of button
+      stopPropagation: false // Stops event propagation
+    }
+  );
+
+
+
+   $('.modelclose').click(function(){
+    $('.modal').modal("close");
+   });
+
+   $('.login').focusin(function(){
+	    $(this).addClass("activetab");
+	    $('.signup').removeClass("activetab");
+	    $('.Forgotpass').removeClass("activetab");
+	  })
+
+	    $('.signup').focusin(function(){
+	    $(this).addClass("activetab");
+	    $('.login').removeClass("activetab");
+	    $('.Forgotpass').removeClass("activetab");
+	  })
+	  
+   if($('body').hasClass('emailsent'))
+   {
+	    var $toastContent = $("<span>Email Sent</span>");
+	     Materialize.toast($toastContent, 1200);
+   }
+
+	  
+	  if($('#modal1').hasClass('openthis'))
+		  {
+		       $('#modal1').modal("open");
+		  }
+	 
+	  $('.Forgotpass').focusin(function(){
+	    $(this).addClass("activetab");
+	    $('.login').removeClass("activetab");
+	    $('.signup').removeClass("activetab");
+	  })
+   autoplay();
+   function autoplay() {
+    $('.carousel').carousel('next');
+    setTimeout(autoplay, 4500);
+   } 
+  });
+  </script>
+
+</body>
+
+</html>

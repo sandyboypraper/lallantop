@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns:th = "https://www.w3.org/1999/xhtml">
+
+<head th:replace = "commonpart/header::common-header" />
+<body th:classappend = "${emailsent}?emailsent">
+   <div th:replace = "commonpart/header::Navbar" >
+    </div>
+ 
+   
+ 
+   <section class="section" th:if="${noitems}">
+     <div class="mybox">
+          <h1 class="basic center">Ooops! No items available try again later</h1>
+     </div>
+  </section>
+ 
+ 
+  <section class="section">
+      <div class="mybox">
+          <div class="row">
+              <div class="col s12 m4 l3" data-th-each = "item : ${itemlist}">
+                    <div class="card z-depth-0">
+                           <div class="card-image card_img_s onhover">
+                              <a th:href = "@{/menDetail?id=} + ${item.id}"><img th:src= "#{adminPortal} + '/' + @{image/men/} + ${item.id} + '.png'" /></a>
+                            </div>
+                            <div class="card-content" style="margin-top: 0 !important; padding:10px 0 0 2px !important">
+                            <a th:href = "@{/menDetail?id=} + ${item.id}"><span class="basic mysmallfont black-text" th:text = "${item.title}"></span></a>
+                            
+                              <a th:href = "@{/menDetail?id=} + ${item.id}"> <p class="basic mysmallfont black-text" th:utext = "'&#x20B9;'+${#numbers.formatDecimal(item.ourPrice,0,'COMMA',0,'POINT')} + '  <span class = ' + 'forlistp' + '>' + ${#numbers.formatDecimal(item.listPrice,0,'COMMA',0,'POINT')} +
+                                  '</span>'">
+                                </p></a>
+                           </div>
+                     </div>
+               </div>  
+           </div>
+      </div>
+  </section>
+ 
+ 
+
+  <div th:replace =  "commonpart/header::bottom-body-scripts" ></div>
+  <script>    
+  $(document).ready(function(){ 
+    $('.carousel.carousel-slider').carousel({fullWidth: true});
+    $('.carousel').carousel({
+    padding: 200    
+   });
+   $('.modal').modal();
+   $('body').click(function() {
+      $('.searchinput').val("");
+   });
+
+   $('.onhover').hover(function(){
+     $(this).addClass('z-depth-4');
+   }).mouseleave(function(){
+     $(this).removeClass('z-depth-4');
+   });
+   
+   $('input').focus(function() {
+	     $('.flash').addClass('hide');
+	   });
+   
+  // $('#email1').focus(function() {
+	   //  $('.flash').addClass('hide');
+	 //  });
+
+  
+  
+ $('.dropdown-button').dropdown({
+      inDuration: 300,
+      outDuration: 225,
+      constrainWidth: false, // Does not change width of dropdown to that of the activator
+      hover: true, // Activate on hover
+      gutter: 0, // Spacing from edge
+      belowOrigin: true, // Displays dropdown below the button
+      alignment: 'left', // Displays dropdown with edge aligned to the left of button
+      stopPropagation: false // Stops event propagation
+    }
+  );
+
+
+
+   $('.modelclose').click(function(){
+    $('.modal').modal("close");
+   });
+
+   $('.login').focusin(function(){
+	    $(this).addClass("activetab");
+	    $('.signup').removeClass("activetab");
+	    $('.Forgotpass').removeClass("activetab");
+	  })
+
+	    $('.signup').focusin(function(){
+	    $(this).addClass("activetab");
+	    $('.login').removeClass("activetab");
+	    $('.Forgotpass').removeClass("activetab");
+	  })
+	  
+   if($('body').hasClass('emailsent'))
+   {
+	    var $toastContent = $("<span>Email Sent</span>");
+	     Materialize.toast($toastContent, 1200);
+   }
+
+	  
+	  if($('#modal1').hasClass('openthis'))
+		  {
+		       $('#modal1').modal("open");
+		  }
+	 
+	  $('.Forgotpass').focusin(function(){
+	    $(this).addClass("activetab");
+	    $('.login').removeClass("activetab");
+	    $('.signup').removeClass("activetab");
+	  })
+   autoplay();
+   function autoplay() {
+    $('.carousel').carousel('next');
+    setTimeout(autoplay, 4500);
+   } 
+  });
+  </script>
+
+</body>
+
+</html>

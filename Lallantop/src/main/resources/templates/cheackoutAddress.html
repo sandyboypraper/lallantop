@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html xmlns:th = "https://www.w3.org/1999/xhtml">
+
+<head th:replace = "commonpart/notsearch::common-header" />
+<body th:classappend="${edited}?edited">
+   <div th:replace = "commonpart/notsearch::Navbar" >
+    </div>
+
+<form th:action = "@{/checkout}" method = "post">
+<section class="section">
+  <div class="myboxup">
+    <div class="row">
+    
+      <div class="col s12 m12 l6">
+  
+  
+                          <div id="form-errors" class="hidden">
+                            <i class="fa fa-exclamation-triangle"></i>
+                            <p id="card-error">Card error</p>
+                          </div>
+                          <div id="form-container">
+                          
+                            <div id="card-front">
+                              <div id="shadow"></div>
+                              <div id="image-container">
+                                <span id="amount">paying: <strong th:text = "${shoppingCart.GrandToptal}"></strong></span>
+                                <span id="card-image" class = "responsive-img">
+                                
+                                  </span>
+                              </div>
+                              <!--- end card image container -->
+                          
+                              <label for="card-number">
+                                  Card Number
+                                </label>
+                                
+                            
+                             <!-- cardnumber -->
+                              <input type="text" id="card-number" name="cardNumber" th:value = "${userPayment.cardNumber}" placeholder="1234 5678 9101 1112" length="16" />
+                              <div id="cardholder-container">
+                                <label for="card-holder">Card Holder
+                                </label>
+                                
+                                
+                                <input type="text" id="card-holder" name="holderName" th:value="${userPayment.holderName}" placeholder="e.g. John Doe" />
+                              </div>
+                              <!--- end card holder container -->
+                              <div id="exp-container">
+                                <label for="card-exp">
+                                    Expiration
+                                  </label>
+                                  
+                                  
+                                <input id="card-month" type="text" name="expiryMonth" th:value="${userPayment.expiryMonth}" placeholder="MM" length="2" />
+                                <input id="card-year" type="text" name="expiryYear" th:value="${userPayment.expiryYear}" placeholder="YY" length="2" />
+                              </div>
+                                  <div id="cvc-container">
+                                <label for="card-cvc"> CVC/CVV</label>
+                                
+                                
+                                <input id="card-cvc" placeholder="XXX-X" name="CVC" th:value="${userPayment.CVC}" type="password" min-length="3" max-length="4" />
+                                <p>Last 3 or 4 digits</p>
+                              </div>
+                              <!--- end CVC container -->
+                              <!--- end exp container -->
+                            </div>
+                            <!--- end card front -->
+                            <div id="card-back">
+                              <div id="card-stripe">
+                              </div>
+                          
+                            </div>
+                            <!--- end card back -->
+                            
+                            
+                            <input type="text" id="card-token" />
+                          
+                          
+                          </div>
+                          <!--- end form container -->
+
+      </div>
+    
+    
+    
+      <div class="col s12 m12 l6">
+          <ul class="collapsible" data-collapsible="accordion">
+              <li>
+                <div class="collapsible-header basic">Products..</div>
+                <div class="collapsible-body">
+
+                    <fieldset class="mybox">
+                        <h1 class="basic"  style="margin-bottom: 0 !important;">My Bag</h1>
+                        <p class="basic myvsmallfont" style="margin: 2px 0 10px 0 !important;" th:text= " '( ' + ${cartItemList.size()} +  ' items )' "></p>
+                        <div class="divider"></div>
+       
+                        <div data-th-each = "cartItem : ${cartItemList}">
+                  <div class="row" style="margin: 15px 0 15px 0 !important;padding: 0 !important;">
+                       <div class="col s12 m12 l3" style="padding: 0 !important;">
+                         <img th:src=" #{adminPortal} +@{/image/men/} + ${cartItem.men.id} + '.png' " style="margin: 0 !important;" class="responsive-img" alt="">
+                       </div>
+                       <div class="col s12 m12 l9" style="padding: 5px 0 0 20px !important;">
+                            <a th:href="@{/menDetail(id=${cartItem.men.id})}" class="basic black-text mysmallfont" th:text = "${cartItem.men.title}"></a>
+                            <p class="basic myvsmallfont" style="margin:6px 0 0 10px !important;" th:text = "'&#x20B9; '+${cartItem.men.ourPrice}" ></p>
+                            <a href="#" class="black-text"><p class="basic myvsmallfont" style= "margin: 10px 0 0 0 !important;" th:text = " 'size '+${cartItem.size} "></p></a>  
+                            <a href="#" class="black-text"><p class="basic myvsmallfont" style="margin: 0 !important;" th:text = " 'quantity ' + ${cartItem.qty} "></p></a>
+                      </div>
+                  </div>
+                  <div class="divider"></div>
+                </div> 
+                      </fieldset>
+                </div>
+              </li>
+              </ul> 
+             
+              
+
+              <div class="mybox" style="background-color: #eee ; padding: 20px 30px 20px 30px ;">
+                        <div >
+                            <p class="basic mysmallfont" >Bag Total <span class="right" th:text = "${shoppingCart.GrandToptal}" ></span> </p>
+                            <p class="basic mysmallfont" >Shipping Charges <span class="right"> Free </span> </p>
+                            <div class="divider"></div>
+                            <p class="basic" >Payble Amount <span class="right" th:text = "${shoppingCart.GrandToptal}"></span> </p>
+                            <div class="divider"></div>
+                           <p class="basic center"><button type = "submit" class="btn mycolor white-text z-depth-0 waves-effect">Go For Payment ></button></p> 
+                        </div>
+              </div>
+                
+                
+                <div class="mybox" style="background-color: #eee ; padding: 20px 30px 20px 30px ;margin-top: 20px;">
+                    <div class="card z-depth-0 transparent">
+                        <div class="card-content basic black-text">
+                          <span class="card-title ">Shipping Address</span>
+                          <p class="myvsmallfont" th:text = "${shipadder.ShippingAddressStreet1} + '  ' + ${shipadder.ShippingAddressCity} + ' (' + ${shipadder.ShippingAddressState} + ')'"></p>
+                          <p class="myvsmallfont" th:text= " 'pincode :- ' + ${shipadder.ShippingAddressZipcode} "></p>
+                        </div>
+                        <div class="card-action">
+                               <a th:href="@{/listofShippingAdresses}" class=" right"  style="color: #51cccc;"> choose other </a>
+                            </a>
+                          </div>
+                      </div>
+                  </div>
+      </div>
+            <input hidden = "hidden" name = "ShippingAddressName" th:value = "${shipadder.ShippingAddressName}">
+             <input hidden = "hidden" name = "id" th:value = "${shipadder.id}">
+              <input hidden = "hidden" name = "ShippingAddressStreet1" th:value = "${shipadder.ShippingAddressStreet1}">
+               <input hidden = "hidden" name = "ShippingAddressCity" th:value = "${shipadder.ShippingAddressCity}">
+                <input hidden = "hidden" name = "ShippingAddressState" th:value = "${shipadder.ShippingAddressState}">
+                 <input hidden = "hidden" name = "ShippingAddressCountry" th:value = "${shipadder.ShippingAddressCountry}">
+    <input hidden = "hidden" name = "ShippingAddressZipcode" th:value = "${shipadder.ShippingAddressZipcode}">
+    </div>
+  </div>
+</section>
+      </form>
+ 
+  <div th:replace =  "commonpart/notsearch::bottom-body-scripts" ></div>
+  <script>    
+  $(document).ready(function(){ 
+
+		$('.collapsible').collapsible();
+
+	    
+	    if($('body').hasClass('edited'))
+	    {
+	 	    var $toastContent = $("<span>Information Updated</span>");
+	 	     Materialize.toast($toastContent, 1200);
+	    }
+	    
+	    $('.dropdown-button').dropdown({
+	        inDuration: 300,
+	        outDuration: 225,
+	        constrainWidth: false, // Does not change width of dropdown to that of the activator
+	        hover: true, // Activate on hover
+	        gutter: 0, // Spacing from edge
+	        belowOrigin: true, // Displays dropdown below the button
+	        alignment: 'left', // Displays dropdown with edge aligned to the left of button
+	        stopPropagation: false // Stops event propagation
+	      }
+	    );
+	    
+	    // for tabs
+	      $(document).ready(function(){
+	    $('ul.tabs').tabs();
+	  });
+
+	      $(document).ready(function(){ 
+	          $('select').material_select();
+	      });
+
+	  // for opening particular tab
+	   $('ul.tabs').tabs('select_tab', 'addupdatecc');
+
+	  });
+  </script>
+
+</body>
+
+</html>

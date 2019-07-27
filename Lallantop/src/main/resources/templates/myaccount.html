@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html xmlns:th = "https://www.w3.org/1999/xhtml">
+
+<head th:replace = "commonpart/notsearch::common-header" />
+<body th:classappend="${edited}?edited">
+   <div th:replace = "commonpart/notsearch::Navbar" >
+    </div>
+  <section class="section" style="margin-top: 30px;">
+     <div class="mybox">
+        <ul class="collapsible" data-collapsible="accordion">
+            <li>
+              <div th:classappend = "${classactiveedit}?active" class="collapsible-header"><i class="material-icons" style="color: #fdd835 !important;">brush</i>Edit</div>
+              <div class="collapsible-body myboxright">
+                    <div class="row">
+                     <span style="color:red; margin-bottom:10px !imporatnt;" class="animated flash" th:if="${bothpassnotequal}">New password and confirm password must be equal</span>
+                     <span style="color:red; margin-bottom:10px !imporatnt;" class="animated flash" th:if="${currentpassnotmatched}">Current password is wrong, Cheack your mails for this once</span>  
+                       <span style="color:red; margin-bottom:10px !imporatnt;" class="animated flash" th:if="${usernotexist}">User not exist please enter write emailid</span>    
+                        <form th:action="@{/editdetails}" class="col s12" method = "post">
+                        <div class="row">
+                                        <div class="input-field col s12 l6 m6">
+                                          <input id="fname" name = "fname" type="text" />
+                                          <label for="fname">first name</label>
+                                        </div>
+                                        <div class="input-field col s12 l6 m6">
+                                                <input id="lname" name = "lname" type="text" />
+                                                <label for="lname">last name</label>
+                                              </div>
+                        </div>
+                        <div class="row">
+                                <div class="input-field col s12">
+                                  <input id="username" type="text" name = "username" th:value = "${user.username}" />
+                                  <label for="username">username</label>
+                                </div>
+                              </div>
+                              <div class="row">
+                                    <div class="input-field col s12">
+                                      <input id="currentpassword" type="password" name = "cpass" />
+                                      <label for="currentpassword">Current Password</label>
+                                    </div>
+                                  </div>
+                          <div class="row">
+                            <div class="input-field col s12">
+                              <input id="email" type="text" name = "email" th:value = "${user.email}" class="validate" />
+                              <label for="email">email</label>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="input-field col s12">
+                              <input id="password" type="password" name = "pass" class="validate" />
+                              <label for="password">Password</label>
+                            </div>
+                          </div>
+                          <div class="row">
+                                <div class="input-field col s12">
+                                  <input id="cpassword" type="password" name = "cnpass" class="validate" />
+                                  <label for="cpassword">Confirm Password</label>
+                                </div>
+                              </div>
+                          <div class="row">
+                              <div class="input-field col s12">
+                                <input type="submit" class="btn modelclose" value = "Submit" />
+                              </div>
+                            </div>
+                        </form>
+                      </div>      
+              </div>
+            </li>
+            <li>
+              <div th:classappend = "${classactiveOrders}?active" class="collapsible-header"><i class="material-icons" style="color: #fdd835 !important;">card_giftcard</i>Orders</div>
+              <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+            </li>
+            <li>
+              <div th:classappend = "${classactivebilling}?active" class="collapsible-header"><i class="material-icons" style="color: #fdd835 !important;">attach_money</i>Billing</div>
+              <div class="collapsible-body">
+              
+              <!-- bread cumbs for cards -->
+                <div class="myboxup">
+                      <nav class="z-depth-0">
+                          <div class="nav-wrapper white">
+                            <div class="col s12   black-text">
+                              <a th:href="@{/listofCreditCards}" class="breadcrumb black-text mylink" th:style="${listofcreditcard}?'color : red !important;'">Card List</a>
+                              <a th:href="@{/addNewCreditCard}" class="breadcrumb  black-text mylink" th:style="${addcreditcard}?'color : red !important;'">Add Your Billing Details</a>
+                            </div>
+                          </div>
+                        
+                        </nav>
+                  </div>
+
+                  <div class= "mybox">
+                   <p th:if = "${emptyshippinglist}" class="basic">Nothing in the list please add something first....</p>
+                  </div>
+                 
+
+                 <!-- tab for list of cards -->
+                  <div th:if = "${nonemptyshippinglist}" class="col s12">
+                      <div class="myboxup">
+                        <form th:action="@{/SetDefaultPayment}" method = "post">
+                          <h3 class="basic">Choose your default card</h3>
+                            <p th:each = "userPayment : ${userPaymentList}">
+                                <input type="radio" name="defaultuserpaymentid" th:value = "${userPayment.id}" th:checked = "${userPayment.defaultPayment}" th:id = "${userPayment.id}" />
+                                <label th:for="${userPayment.id}" th:text="${userPayment.cardName}" ></label>
+                                 <a th:href = "@{/removeCardDetails(id=${userPayment.id})}" class="right"><i class="material-icons">clear</i></a>
+                                 <a  th:href = "@{/updateCardDetails(id=${userPayment.id})}" class="right" style="margin-right: 10px !important;"><i class="material-icons">create</i></a>
+                                <hr/>
+                              </p>
+                             <button type="submit" class="btn mycolor" style="margin-top: 20px !important;">save</button>
+                          </form>      
+                      </div>
+                  </div>
+
+
+                  
+                  <!-- tab for edit cards -->
+                  <div th:if = "${addcreditcard}" class="mybox col s12" style="margin-bottom: 60px !important;">
+                    <form th:action = "@{/addNewCreditCard}" method = "post">
+                    
+               <input hidden = "hidden" name="id" th:value="${userPayment.id}" /> 
+                    
+                    <fieldset style="padding: 50px !important;">
+                     <div class="row">
+                            <div class="input-field col s12 black-text">
+                              <input id="nickname" required type="text" name="cardName" th:value="${userPayment.cardName}" class="validate" />
+                              <label for="nickname">Give the nick name for your credit card</label>
+                            </div>
+                          </div>
+                          
+                          <p class="basic">Billing Address.....</p>
+                          <div class="row">
+                              <div class="input-field col s12">
+                                <input  id="Name" type="text" name="userBillingName" th:value="${userBilling.userBillingName}" required class="validate" />
+                                <label for="Name">*Name</label>
+                              </div>
+                            </div>
+                          <div class="row">
+                            <div class="input-field col s12">
+                              <input  id="address1" type="text" name = "userBillingStreet1" th:value="${userBilling.userBillingStreet1}" required class="validate" />
+                              <label for="address1">*Street Address1</label>
+                            </div>
+                          </div>
+                          <div class="row">
+                              <div class="input-field col s12">
+                                <input id="address2" type="text" name = "userBillingStreet2" th:value="${userBilling.userBillingStreet2}" required class="validate" />
+                                <label for="address2">*Street Address2</label>
+                              </div>
+                            </div>
+                           <div class="row">
+                             <div class="input-field col s12 m4 l4">
+                                <input id="city" type="text" name="userBillingCity" th:value="${userBilling.userBillingCity}" required class="validate" />
+                                <label for="city">*City</label>
+                             </div>
+                             <div class="input-field col s12 m4 l4">
+                                <select name = "userBillingState">
+                                    <option value="" disabled selected>Choose your option</option>
+                                    <option th:each = "state : ${stateList}" th:value="${state}" th:text="${state}"></option>
+                                  </select>
+                                  <label>*State</label>
+                              </div>
+                              <div class="input-field col s12 m4 l4">
+                                  <input id="zipcode" type="number" name = "userBillingZipcode" th:value="${userBilling.userBillingZipcode}" required class="validate" />
+                                  <label for="zipcode">*zipcode</label>
+                                </div>
+                           </div>
+                           </fieldset>
+                           
+                           
+                           
+                           <p class="basic">Credit Card Information.....</p>
+                           
+                        
+                          <div id="form-errors" class="hidden">
+                            <i class="fa fa-exclamation-triangle"></i>
+                            <p id="card-error">Card error</p>
+                          </div>
+                          <div id="form-container">
+                          
+                            <div id="card-front">
+                              <div id="shadow"></div>
+                              <div id="image-container">
+                                <span id="amount">paying: <strong>$99</strong></span>
+                                <span id="card-image">
+                                
+                                  </span>
+                              </div>
+                              <!--- end card image container -->
+                          
+                              <label for="card-number">
+                                  Card Number
+                                </label>
+                                
+                            
+                             <!-- cardnumber -->
+                              <input type="text" id="card-number" name="cardNumber" th:value = "${userPayment.cardNumber}" placeholder="1234 5678 9101 1112" length="16" />
+                              <div id="cardholder-container">
+                                <label for="card-holder">Card Holder
+                                </label>
+                                
+                                
+                                <input type="text" id="card-holder" name="holderName" th:value="${userPayment.holderName}" placeholder="e.g. John Doe" />
+                              </div>
+                              <!--- end card holder container -->
+                              <div id="exp-container">
+                                <label for="card-exp">
+                                    Expiration
+                                  </label>
+                                  
+                                  
+                                <input id="card-month" type="text" name="expiryMonth" th:value="${userPayment.expiryMonth}" placeholder="MM" length="2" />
+                                <input id="card-year" type="text" name="expiryYear" th:value="${userPayment.expiryYear}" placeholder="YY" length="2" />
+                              </div>
+                                  <div id="cvc-container">
+                                <label for="card-cvc"> CVC/CVV</label>
+                                
+                                
+                                <input id="card-cvc" placeholder="XXX-X" name="CVC" th:value="${userPayment.CVC}" type="text" min-length="3" max-length="4" />
+                                <p>Last 3 or 4 digits</p>
+                              </div>
+                              <!--- end CVC container -->
+                              <!--- end exp container -->
+                            </div>
+                            <!--- end card front -->
+                            <div id="card-back">
+                              <div id="card-stripe">
+                              </div>
+                          
+                            </div>
+                            <!--- end card back -->
+                            
+                            
+                            <input type="text" id="card-token" />
+                          
+                          
+                          </div>
+                          <!--- end form container -->
+                          
+                    
+                      <button type="submit" class="btn blacktext mycolor right">Save All</button>
+                    
+                    </form>
+                  </div>
+              
+              
+              
+              </div>
+            </li>
+            <li>
+                <div th:classappend = "${classactiveshipping}?active" class="collapsible-header"><i class="material-icons" style="color: #fdd835 !important;">directions_bike</i>Shiping</div>
+                <div class="collapsible-body">
+                
+                                   <!-- bread cumbs for cards -->
+                <div class="myboxup">
+                      <nav class="z-depth-0">
+                          <div class="nav-wrapper white">
+                            <div class="col s12   black-text">
+                              <a th:href="@{/listofShippingAdresses}" class="breadcrumb black-text mylink" th:style="${listofShippingAddresses}?'color : red !important;'">List of Shipping Addresses</a>
+                              <a th:href="@{/addNewShippingAddress}" class="breadcrumb  black-text mylink" th:style="${addNewShippingAddress}?'color : red !important;'">Add new Shipping Address</a>
+                            </div>
+                          </div>
+                        
+                        </nav>
+                  </div>
+
+                  <div class= "mybox">
+                   <p th:if = "${emptyshippinglist1}" class="basic">Nothing in the list please add something first....</p>
+                  </div>
+                 
+
+                 <!-- tab for list of cards -->
+                  <div th:if = "${nonemptyshippinglist1}" class="col s12">
+                      <div class="myboxup">
+                        <form th:action="@{/SetDefaultShippingAddress}" method = "post">
+                          <h3 class="basic">Choose your default Shipping Address</h3>
+                            <p th:each = "userShipping : ${userShippingList}">
+                                <input type="radio" name="SetDefaultShippingAddressId" th:value = "${userShipping.id}" th:checked = "${userShipping.userShippingdefault}" th:id = "${userShipping.id}" />
+                                <label th:for="${userShipping.id}" th:text="${userShipping.userShippingStreet1} + ',  ' + ${userShipping.userShippingCity} + ',  '+ ${userShipping.userShippingState}  " ></label>
+                                 <a th:href = "@{/removeShipping(id=${userShipping.id})}" class="right"><i class="material-icons">clear</i></a>
+                                 <a  th:href = "@{/updateShipping(id=${userShipping.id})}" class="right" style="margin-right: 10px !important;"><i class="material-icons">create</i></a>
+                                <hr/>
+                              </p>
+                             <button type="submit" class="btn mycolor" style="margin-top: 20px !important;">save</button>
+                          </form>      
+                      </div>
+                  </div>
+                                
+                                    <!-- tab for edit cards -->
+                  <div th:if = "${addNewShippingAddress}" class="mybox col s12" style="margin-bottom: 60px !important;">
+                    <form th:action = "@{/addNewShippingAddress}" method = "post">
+                    
+               <input hidden = "hidden" name="id" th:value="${userShipping.id}" /> 
+                    
+                    <fieldset style="padding: 50px !important;">
+                          
+                          <p class="basic">Shipping Address.....</p>
+                          <div class="row">
+                              <div class="input-field col s12">
+                                <input  id="sName" type="text" name="userShippingName" th:value="${userShipping.userShippingName}" required class="validate" />
+                                <label for="sName">*Name</label>
+                              </div>
+                            </div>
+                          <div class="row">
+                            <div class="input-field col s12">
+                              <input  id="saddress1" type="text" name = "userShippingStreet1" th:value="${userShipping.userShippingStreet1}" required class="validate" />
+                              <label for="saddress1">*Street Address1</label>
+                            </div>
+                          </div>
+                          <div class="row">
+                              <div class="input-field col s12">
+                                <input id="saddress2" type="text" name = "userShippingStreet2" th:value="${userShipping.userShippingStreet2}" required class="validate" />
+                                <label for="saddress2">*Street Address2</label>
+                              </div>
+                            </div>
+                           <div class="row">
+                             <div class="input-field col s12 m4 l4">
+                                <input id="scity" type="text" name="userShippingCity" th:value="${userShipping.userShippingCity}" required class="validate" />
+                                <label for="scity">*sCity</label>
+                             </div>
+                             <div class="input-field col s12 m4 l4">
+                                <select name = "userShippingState">
+                                    <option value="" disabled selected>Choose your option</option>
+                                    <option th:each = "state : ${stateList}" th:value="${state}" th:text="${state}"></option>
+                                  </select>
+                                  <label>*State</label>
+                              </div>
+                              <div class="input-field col s12 m4 l4">
+                                  <input id="szipcode" type="number" name = "userShippingZipcode" th:value="${userShipping.userShippingZipcode}" required class="validate" />
+                                  <label for="szipcode">*zipcode</label>
+                                </div>
+                           </div>
+                           </fieldset>
+                           
+                      <button type="submit" class="btn blacktext mycolor right">Save All</button>
+                    
+                    </form>
+                  </div>
+              
+              
+                
+                </div>
+              </li>
+          </ul>
+     </div>
+ </section>
+
+  <div th:replace =  "commonpart/notsearch::bottom-body-scripts" ></div>
+  <script>    
+  $(document).ready(function(){ 
+	    $('.collapsible').collapsible();
+	    
+	    if($('body').hasClass('edited'))
+	    {
+	 	    var $toastContent = $("<span>Information Updated</span>");
+	 	     Materialize.toast($toastContent, 1200);
+	    }
+	    
+	    $('.dropdown-button').dropdown({
+	        inDuration: 300,
+	        outDuration: 225,
+	        constrainWidth: false, // Does not change width of dropdown to that of the activator
+	        hover: true, // Activate on hover
+	        gutter: 0, // Spacing from edge
+	        belowOrigin: true, // Displays dropdown below the button
+	        alignment: 'left', // Displays dropdown with edge aligned to the left of button
+	        stopPropagation: false // Stops event propagation
+	      }
+	    );
+	    
+	    // for tabs
+	      $(document).ready(function(){
+	    $('ul.tabs').tabs();
+	  });
+
+	      $(document).ready(function(){ 
+	          $('select').material_select();
+	      });
+
+	  // for opening particular tab
+	   $('ul.tabs').tabs('select_tab', 'addupdatecc');
+
+	  });
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html xmlns:th = "http://www.w3.org/1999/xhtml">
+
+<head th:fragment = "common-header">
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <!--Import materialize.css-->
+  <link type="text/css" rel="stylesheet" href="/css/materialize.min.css" media="screen,projection" />
+  <link type="text/css" rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
+   <link th:if = "${showcreditcard}" type="text/css" rel="stylesheet" href="/css/creditcard.css" />
+  <!--Let browser know website is optimized for mobile-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lallantop</title>
+</head>
+
+<body>
+<div th:fragment = "Navbar">
+<nav class="navheight">
+    <div class="nav-wrapper white mynavbox">
+      <a href="#" class="brand-logo black-text Heading smallHed">LallanTop</a>
+       <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons black-text">menu</i></a>
+      <ul id="nav-mobile" class="left navcontentleft hide-on-med-and-down basic">
+         <li><a th:href="@{/men}" class="black-text dropdown-button" data-activates='menitems'>MEN</a></li>
+        <li><a th:href="@{/women}" class="black-text dropdown-button" data-activates='womenitems'>WOMEN</a></li>
+        <li><a th:href="@{/accessories}" class="black-text dropdown-button" data-activates='accesoriesitems'>ACCESORIES</a></li> 
+      </ul>
+      <ul class="right hide-on-med-and-down">
+           <li><a sec:authorize = "isAuthenticated()" th:href="@{/shoppingCart/cart}" ><i class="material-icons black-text myicon">work</i></a></li>
+          <li><a sec:authorize = "isAnonymous()" href="#modal1" class="modal-trigger"><i class="material-icons black-text myicon">face</i></a></li>
+           <li><a sec:authorize = "isAuthenticated()" th:href="@{/myaccount}" ><i class="material-icons black-text myicon">face</i></a></li>
+            <li><a sec:authorize = "isAuthenticated()" th:href = "@{/logout}"><i class="material-icons black-text myicon">exit_to_app</i></a></li>
+        </ul>
+         <ul class="side-nav" id="mobile-demo">
+                
+         <ul class="collapsible" data-collapsible="accordion">
+    <li>
+      <div class="collapsible-header black-text">Men</div>
+      <div class="collapsible-body">
+           <ul>
+              <li><a th:href="@{/men}" class="black-text dropdown-button basic mysmallfont">ALL MEN</a></li>
+              <li><a href="#" class="basic" >Topwear</a></li>
+    <li><a th:href="@{/mencat(cat = 'Plain T Shirts')}" class=" basic myvsmallfont black-text"><i class="material-icons mycolor-text">navigate_next</i>Plain T-Shirts</a></li>
+    <li><a th:href="@{/mencat(cat = 'Graphic T Shirts')}" class=" basic myvsmallfont black-text"><i class="material-icons mycolor-text">navigate_next</i>Graphic T-Shirts</a></li>
+    <li><a th:href="@{/mencat(cat = 'Full Sleeves T Shirt')}" class=" basic myvsmallfont black-text"><i class="material-icons mycolor-text">navigate_next</i>full Sleeves T-Shirt</a></li>
+    <li><a th:href="@{/mencat(cat = 'Shirts')}" class=" basic myvsmallfont black-text"><i class="material-icons mycolor-text">navigate_next</i>Shirts</a></li>
+    <li><a th:href="@{/mencat(cat = 'Jackets')}" class=" basic myvsmallfont black-text"><i class="material-icons mycolor-text">navigate_next</i>Jackets</a></li>
+    <li class="divider"></li>
+    <li><a href="#" class="basic" >Bottomwear</a></li>
+    <li><a th:href="@{/mencat(cat = 'Joggers')}" class=" basic myvsmallfont black-text"><i class="material-icons mycolor-text">navigate_next</i>Joggers</a></li>
+    <li><a th:href="@{/mencat(cat = 'Shorts')}" class=" basic myvsmallfont black-text"><i class="material-icons mycolor-text">navigate_next</i>Shorts</a></li>
+    <li class="divider"></li>
+    <li><a href="#" class="basic" >Accessories</a></li>
+    <li><a th:href="@{/mencat(cat = 'Bags')}" class=" basic myvsmallfont black-text"><i class="material-icons mycolor-text">navigate_next</i>Bags & Backpacks</a></li>
+           </ul>
+      </div>
+    </li>
+    <li>
+      <div class="collapsible-header black-text">Women</div>
+      <div class="collapsible-body">
+      <ul>
+            <li><a th:href="@{/women}" class="black-text dropdown-button basic mysmallfont">ALL WOMEN</a></li>
+            <li><a href="" class="basic" >Topwear</a></li>
+      <li><a th:href="@{/womencat(cat = 'Plain T Shirts')}" class=" basic myvsmallfont black-text"><i class="material-icons mycolor-text">navigate_next</i>Plain T-Shirts</a></li>
+      <li><a th:href="@{/womencat(cat = 'Graphic T Shirts')}" class=" basic myvsmallfont black-text"><i class="material-icons mycolor-text">navigate_next</i>Graphic T-Shirts</a></li>
+      <li><a th:href="@{/womencat(cat = 'Full Sleeves T Shirt')}" class=" basic myvsmallfont black-text"><i class="material-icons mycolor-text">navigate_next</i>full Sleeves T-Shirt</a></li>
+      <li><a th:href="@{/womencat(cat = 'Shirts&dresses')}" class=" basic myvsmallfont black-text"><i class="material-icons mycolor-text">navigate_next</i>Shirts&dresses</a></li>
+      <li class="divider"></li>
+      <li><a href="" class="basic" >Bottomwear</a></li>
+      <li><a th:href="@{/womencat(cat = 'Joggers')}" class=" basic myvsmallfont black-text"><i class="material-icons mycolor-text">navigate_next</i>Joggers</a></li>
+      <li><a th:href="@{/womencat(cat = 'Shorts')}" class=" basic myvsmallfont black-text"><i class="material-icons mycolor-text">navigate_next</i>Shorts</a></li>
+      <li class="divider"></li>
+      <li><a href="" class="basic" >Accessories</a></li>
+      <li><a th:href="@{/womencat(cat = 'Bags')}" class=" basic myvsmallfont black-text"><i class="material-icons mycolor-text">navigate_next</i>Bags & Backpacks</a></li>
+      </ul>
+      </div>
+    </li>
+    <li>
+      <div class="collapsible-header black-text">MobileCovers</div>
+      <div class="collapsible-body">
+      <ul>
+      <li><a th:href="@{/accessories}" class="black-text dropdown-button basic mysmallfont">ALL</a></li> 
+        <li><a th:href="@{/accessoriescat(cat = 'Xiomi')}" class=" basic myvsmallfont black-text"><i class="material-icons mycolor-text">navigate_next</i>Xiomi</a></li>
+        <li><a th:href="@{/accessoriescat(cat = 'Samsung')}" class=" basic myvsmallfont black-text"><i class="material-icons mycolor-text">navigate_next</i>Samsung</a></li>
+        <li><a th:href="@{/accessoriescat(cat = 'Motorola')}" class=" basic myvsmallfont black-text"><i class="material-icons mycolor-text">navigate_next</i>Motorola</a></li>
+        <li><a th:href="@{/accessoriescat(cat = 'Apple')}" class=" basic myvsmallfont black-text"><i class="material-icons mycolor-text">navigate_next</i>Apple</a></li>
+        <li><a th:href="@{/accessoriescat(cat = 'Nokia')}" class=" basic myvsmallfont black-text"><i class="material-icons mycolor-text">navigate_next</i>Nokia</a></li>
+        <li><a th:href="@{/accessoriescat(cat = 'Oppo')}" class=" basic myvsmallfont black-text"><i class="material-icons mycolor-text">navigate_next</i>Oppo</a></li> 
+      </ul>
+      </div>
+    </li>
+  </ul>
+
+            <div class="divider"></div>
+         
+         <li><a sec:authorize = "isAuthenticated()" th:href="@{/shoppingCart/cart}" ><i class="material-icons black-text">work</i>My Cart </a></li>
+          <li><a sec:authorize = "isAnonymous()" href="#modal1" class="modal-trigger"><i class="material-icons black-text">face</i>Login</a></li>
+           <li><a sec:authorize = "isAuthenticated()" th:href="@{/myaccount}" ><i class="material-icons black-text">face</i>My Account</a></li>
+            <li><a sec:authorize = "isAuthenticated()" th:href = "@{/logout}"><i class="material-icons black-text">exit_to_app</i>LogOut</a></li>
+        <div class="divider"></div>
+        </ul>
+    </div>
+  </nav>
+    
+  <ul id='menitems' class='dropdown-content'>
+    <li><a href="#" class="basic" >Topwear</a></li>
+    <li><a th:href="@{/mencat(cat = 'Plain T Shirts')}" class=" basic myvsmallfont black-text"><i class="material-icons mycolor-text">navigate_next</i>Plain T-Shirts</a></li>
+    <li><a th:href="@{/mencat(cat = 'Graphic T Shirts')}" class=" basic myvsmallfont black-text"><i class="material-icons mycolor-text">navigate_next</i>Graphic T-Shirts</a></li>
+    <li><a th:href="@{/mencat(cat = 'Full Sleeves T Shirt')}" class=" basic myvsmallfont black-text"><i class="material-icons mycolor-text">navigate_next</i>full Sleeves T-Shirt</a></li>
+    <li><a th:href="@{/mencat(cat = 'Shirts')}" class=" basic myvsmallfont black-text"><i class="material-icons mycolor-text">navigate_next</i>Shirts</a></li>
+    <li><a th:href="@{/mencat(cat = 'Jackets')}" class=" basic myvsmallfont black-text"><i class="material-icons mycolor-text">navigate_next</i>Jackets</a></li>
+    <li class="divider"></li>
+    <li><a href="#" class="basic" >Bottomwear</a></li>
+    <li><a th:href="@{/mencat(cat = 'Joggers')}" class=" basic myvsmallfont black-text"><i class="material-icons mycolor-text">navigate_next</i>Joggers</a></li>
+    <li><a th:href="@{/mencat(cat = 'Shorts')}" class=" basic myvsmallfont black-text"><i class="material-icons mycolor-text">navigate_next</i>Shorts</a></li>
+    <li class="divider"></li>
+    <li><a href="#" class="basic" >Accessories</a></li>
+    <li><a th:href="@{/mencat(cat = 'Bags')}" class=" basic myvsmallfont black-text"><i class="material-icons mycolor-text">navigate_next</i>Bags & Backpacks</a></li>
+  </ul>
+
+  <ul id='womenitems' class='dropdown-content'>
+      <li><a href="" class="basic" >Topwear</a></li>
+      <li><a th:href="@{/womencat(cat = 'Plain T Shirts')}" class=" basic myvsmallfont black-text"><i class="material-icons mycolor-text">navigate_next</i>Plain T-Shirts</a></li>
+      <li><a th:href="@{/womencat(cat = 'Graphic T Shirts')}" class=" basic myvsmallfont black-text"><i class="material-icons mycolor-text">navigate_next</i>Graphic T-Shirts</a></li>
+      <li><a th:href="@{/womencat(cat = 'Full Sleeves T Shirt')}" class=" basic myvsmallfont black-text"><i class="material-icons mycolor-text">navigate_next</i>full Sleeves T-Shirt</a></li>
+      <li><a th:href="@{/womencat(cat = 'Shirts&dresses')}" class=" basic myvsmallfont black-text"><i class="material-icons mycolor-text">navigate_next</i>Shirts&dresses</a></li>
+      <li class="divider"></li>
+      <li><a href="" class="basic" >Bottomwear</a></li>
+      <li><a th:href="@{/womencat(cat = 'Joggers')}" class=" basic myvsmallfont black-text"><i class="material-icons mycolor-text">navigate_next</i>Joggers</a></li>
+      <li><a th:href="@{/womencat(cat = 'Shorts')}" class=" basic myvsmallfont black-text"><i class="material-icons mycolor-text">navigate_next</i>Shorts</a></li>
+      <li class="divider"></li>
+      <li><a href="" class="basic" >Accessories</a></li>
+      <li><a th:href="@{/womencat(cat = 'Bags')}" class=" basic myvsmallfont black-text"><i class="material-icons mycolor-text">navigate_next</i>Bags & Backpacks</a></li>
+    </ul>
+
+    <ul id='accesoriesitems' class='dropdown-content'>
+        <li><a href="" class="basic" >Mobile-Covers</a></li>
+        <li><a th:href="@{/accessoriescat(cat = 'Xiomi')}" class=" basic myvsmallfont black-text"><i class="material-icons mycolor-text">navigate_next</i>Xiomi</a></li>
+        <li><a th:href="@{/accessoriescat(cat = 'Samsung')}" class=" basic myvsmallfont black-text"><i class="material-icons mycolor-text">navigate_next</i>Samsung</a></li>
+        <li><a th:href="@{/accessoriescat(cat = 'Motorola')}" class=" basic myvsmallfont black-text"><i class="material-icons mycolor-text">navigate_next</i>Motorola</a></li>
+        <li><a th:href="@{/accessoriescat(cat = 'Apple')}" class=" basic myvsmallfont black-text"><i class="material-icons mycolor-text">navigate_next</i>Apple</a></li>
+        <li><a th:href="@{/accessoriescat(cat = 'Nokia')}" class=" basic myvsmallfont black-text"><i class="material-icons mycolor-text">navigate_next</i>Nokia</a></li>
+        <li><a th:href="@{/accessoriescat(cat = 'Oppo')}" class=" basic myvsmallfont black-text"><i class="material-icons mycolor-text">navigate_next</i>Oppo</a></li>
+      </ul>
+  
+     
+<div sec:authorize = "isAnonymous()" id="modal1" class="modal modal-fixed-footer" th:classappend = "${openmodal}?openthis">
+    <div class="modal-content">
+      <div class="row">
+        <div class="col s12">
+          <ul class="tabs .tabs-fixed-width" style = "background: transparent;">
+            <li class="tab col s3"><a class="login black-text" th:classappend = "${classActivelogin}?active" href="#LOGIN">LOG IN</a></li>
+            <li class="tab col s3 "><a class="signup black-text" th:classappend = "${classActiveSignup}?active" href="#SIGNUP">SIGN UP</a></li>
+            <li class="tab col s3 "><a class="Forgotpass black-text" th:classappend = "${classActiveForgotPassword}?active" href="#Forgotpass">Forgot??</a></li>
+          </ul>
+        </div>
+        <div id="LOGIN" class="col s12">
+          <div class="myboxup">
+              <div class="row">
+                  <form th:action = "@{/login}" class="col s12" method = "post">
+                    <div class="row">
+                      <span style="color:red; margin-bottom:10px !imporatnt;" class="animated flash" th:if="${param.error != null}">wrong username or password</span>
+                      <div class="input-field col s12">
+                        <input id="email" type="text" class="validate" name="username" />
+                        <label for="email">username</label>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="input-field col s12">
+                        <input id="password" type="password" class="validate" name = "password" />
+                        <label for="password">Password</label>
+                      </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                          <input type="submit" class="btn modelclose" value = "continue" />
+                        </div>
+                      </div>
+                  </form>
+                </div>      
+          </div>
+        </div>
+        <div id="Forgotpass" class="col s12">
+          <div class="myboxup">
+              <div class="row">
+                  <form th:action = "@{/forgotpassword}" class="col s12">
+                    <span style="color:red; margin-bottom:10px !imporatnt;" class="animated flash" th:if="${emailNotExists}">email not exist.</span>
+                    <div class="row">
+                      <div class="input-field col s12">
+                        <input id="email2" type="text" name = "email" class="validate" />
+                        <label for="email2">email</label>
+                      </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                          <input type="submit" class="btn modelclose" value = "get it" />
+                        </div>
+                      </div>
+                  </form>
+                </div>      
+          </div>
+        </div>
+        <div id="SIGNUP" class="col s12">
+            <div class="row  myboxup">
+                <form th:action = "@{/newuser}" class="col s12" method = "post">
+                        <div class="row">
+                         <span style="color:red; margin-bottom:10px !imporatnt;" class="animated flash" th:if="${usernameExists}">username already exists try another one</span>
+                    <div class="input-field col s12">   
+                      <input id = "username1" type="text" name = "username" />
+                      <label for="username1">username</label>
+                    </div>
+                  </div>
+                
+                  <div class="row">
+                  <span style="color:red;" class="animated flash" th:if = "${emailExists}">Email already exists try another one</span>
+                      <div class="input-field col s12">
+                        <input id="email1" type="email" class="validate" name = "email" />
+                        <label for="email1">Email</label>
+                      </div>
+                    </div>
+           
+                    <div class="row">
+                        <div class="input-field col s12">
+                          <input type="submit" class="btn modelclose" value = "sign up" />
+                        </div>
+                      </div>
+                </form>
+              </div>
+             </div>
+      </div>
+    </div>
+    <!-- <div class="modal-footer">
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Agree</a>
+    </div> -->
+  </div>
+
+</div>
+<div th:fragment="bottom-body-scripts">
+
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/js/materialize.min.js"></script>
+  
+  <script th:if = "${showcreditcard}" type="text/javascript" src="https://js.stripe.com/v2/"></script>
+  <script th:if = "${showcreditcard}" src="https://use.fontawesome.com/f1e0bf0cbc.js"></script>
+  <script th:if = "${showcreditcard}" type="text/javascript" src="/js/creditcard.js"></script>
+       <script>
+       $(document).ready(function(){   $(".button-collapse").sideNav();  $('.collapsible').collapsible(); });
+  </script>
+  
+    <footer class="page-footer black">
+          <div class="container">
+            <div class="row">
+              <div class="col l6 s12">
+                <h5 class="white-text mycolor-text">LallanTop</h5>
+                <p class="grey-text text-lighten-4 basic myvsmallfont">Made with lots of Code , and this is only for Resume lol ......</p>
+              </div>
+              <div class="col l4 offset-l2 s12">
+                <h5 class="white-text mycolor-text">Sandy</h5>
+                <ul>
+                  <li><a class="grey-text text-lighten-3 basic myvsmallfont" href="#!">gitHub</a></li>
+                  <li><a class="grey-text text-lighten-3 basic myvsmallfont" href="#!">Linkdn</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="footer-copyright">
+            <div class="container">
+            � 2018
+            </div>
+          </div>
+        </footer>
+            
+  
+  
+</div>
+</body>
+</html>

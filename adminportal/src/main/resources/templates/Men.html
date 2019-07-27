@@ -1,0 +1,133 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1000/xhtml">
+<head th:replace="common/header :: common-header" />
+
+<body>
+	<div th:replace="common/header :: navbar" />
+
+	<div class="container">
+		<div class="row">
+		<form class="form-horizontal" th:action="@{/addMen}" method="post" enctype="multipart/form-data">
+		<fieldset>
+			<legend class="center-block">New Men Information</legend><span style="font-size:small"> * is a required field</span>
+		
+			<!-- title -->
+			<div class="form-group">
+				<label for="title">* Title</label> 
+				<input
+					type="text" class="form-control" name = "title" id="title" th:value="${men.title}" required="required"
+					th:placeholder="${men.title}" />
+					<span class="help-block">Title of the men</span>
+			</div>
+			
+			<div class="form-group">
+				<label for="title">Description</label> 
+				<input
+					type="text" class="form-control" name = "description" id="title" th:value="${men.description}" required="required"
+					placeholder="description" />
+					<span class="help-block">description</span>
+			</div>
+			
+			<!-- colorcode -->
+			<div class="form-group">
+				<label for="author">* Color Code</label> 
+				<input
+					type="text" class="form-control" name = "colorcode" id="author" th:value="${men.colorcode}" required="required"
+					placeholder="red" />
+					<span class="help-block">color code of men item</span>
+			</div>
+			
+
+			
+			<!-- isbn -->
+			<div class="form-group">
+				<label for="publicationDate">isbn of the men item</label> 
+				<input
+					type="number" class="form-control" name = "isbn" id="publicationDate" th:value="${men.isbn}"
+					placeholder="ublication Date" />
+					<span class="help-block">isbn of the men item</span>
+			</div>
+			
+			
+			
+				<div class="form-group">
+				<label class="col-xs-2 control-label" for="language">BaapCat</label>
+				<div class="col-xs-8">
+					<select id="language" name = "Baapcat" class="form-control">
+						<option name = "Baapcat">men</option>
+						<option name = "Baapcat">women</option>
+						<option name = "Baapcat">acc</option>
+					</select>
+				</div> 
+			</div>
+			
+			
+			
+			
+			<!-- category -->
+			<div class="form-group">
+				<label class="col-xs-2 control-label" for="language">category</label>
+				<div class="col-xs-8">
+					<select th:value="${men.category}" name = "cat" id="language" class="form-control">
+						<option data-th-each = "cat : ${catlist}"  th:selected="(${men.category}==${cat})" th:value = "${cat}" th:text = "${cat}"></option>
+					</select>
+				</div> 
+			</div>
+			
+			<div class="form-group">
+				<label for="publicationDate">list price</label> 
+				<input
+					type="number" class="form-control" name = "listprice" id="publicationDate" th:value="${men.listPrice}"
+					placeholder="listPrice" />
+					<span class="help-block">listPrice</span>
+			</div>
+			
+			<div class="form-group">
+				<label for="publicationDate">actual price</label> 
+				<input
+					type="number" class="form-control" name="ourprice" id="publicationDate" th:value="${men.ourPrice}"
+					placeholder="ourPrice" />
+					<span class="help-block">ourPrice</span>
+			</div>
+			
+			
+			<div class="form-group">
+				<label for="publicationDate">sizes available (sperated by slashes plzz)</label> 
+				<input
+					type="text" class="form-control" name = "sizes" id="publicationDate" th:value="${men.sizes}"
+					placeholder="sizes" />
+					<span class="help-block">sizes</span>
+			</div>
+			
+			<div class="form-group">
+				<label for="publicationDate">In Stock Number</label> 
+				<input
+					type="number" class="form-control" name = "instocknumber" id="publicationDate" th:value="${men.inStockNumber}"
+					placeholder="0" />
+					<span class="help-block">inStockNumber</span>
+			</div>
+			
+			<div class = 'form-group'>
+				<div class="col-xs-2">
+					<label for="bookImage">Upload book image</label>
+					
+				</div>
+				<div class = "col-xs-8">
+					<input id = "menImage" type="file" name = "menimage" th:value="${men.image}"/>
+				</div>
+			</div>
+			
+			
+			
+			<button type="submit" class="btn btn-default">Submit</button>
+			</fieldset>
+		</form>
+</div>
+	</div>
+
+
+	<div th:replace="common/header :: body-bottom-scripts" />
+</body>
+</html>
+		

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html xmlns:th = "https://www.w3.org/1999/xhtml">
+
+<head th:replace = "commonpart/header::common-header" />
+<body th:classappend = "${emailsent}?emailsent">
+   <div th:replace = "commonpart/header::Navbar" >
+    </div>
+  <div class="carousel carousel-slider carouselheight " data-indicators="true">
+    <a href="#one!" class="carousel-item">
+      <img class="responsive-img" src="img/car1.jpg" />
+    </a>
+    <a href="#two!" class="carousel-item">
+        <img class="responsive-img" src="img/car2.jpg" />
+      </a>
+      <a href="#three!" class="carousel-item">
+          <img class="responsive-img" src="img/car3.jpg" />
+        </a>
+        <a href="#four!" class="carousel-item">
+            <img class="responsive-img" src="img/car4.jpg" />
+          </a>
+  </div>
+
+  <section class="section" id = "forlogin" th:classappend = "${openlogin}?openlogin">
+    <div class="mybox"> <div class="row">
+        <div class="col s12 m4">
+          <a href="#"> <div class="card">
+              <div class="card-image cardimg onhover">
+                <img src="img/woolerns.jpg" />
+              </div>
+            </div></a>
+        </div>
+        <div class="col s12 m4">
+          <a href="#"> <div class="card">
+              <div class="card-image cardimg onhover">
+                <img src="img/assesories.jpg" />
+              </div>
+            </div></a>
+          </div>
+          <div class="col s12 m4">
+              <a href="#"> <div class="card">
+                  <div class="card-image cardimg onhover">
+                    <img src="img/pents.jpg" />
+                  </div>
+                </div></a>
+            </div>
+      </div></div>
+  </section>
+
+  <section class="section">
+    <div class="mybox">
+       <div class="row">
+         <div class="col s12 m4 center">
+            <h5 class="Heading">
+              Pricing
+            </h5>
+            <p class="basic">we cut out the middleman to make everyday products available</p>
+         </div>
+         <div class="col s12 m4 center">
+            <h5 class="Heading">
+                Quality
+              </h5>
+              <p class="basic">we choose the best sellers to ensure you get the best</p>
+          </div>
+          <div class="col s12 m4 center">
+              <h5 class="Heading">
+                  Design
+                </h5>
+                <p class="basic">we create designs that are extenssions of you</p>
+            </div>
+       </div>
+    </div>
+  </section>
+
+  <!-- featured products -->
+
+  <section class="section">
+    <div class="mybox"> <div class="row">
+        <div class="col s12 m4">
+           <a href="#"> <div class="card">
+               <div class="card-image onhover cardimg">
+                 <img src="img/half-sleeve-desktop-1541396330.jpg" />
+               </div>
+             </div></a>
+        </div>
+        <div class="col s12 m4">
+            <a href="#"> <div class="card">
+                <div class="card-image cardimg onhover">
+                  <img src="img/boyfriend-tshirt-desktop-1541396347.jpg" />
+                </div>
+              </div></a>
+         </div>
+         <div class="col s12 m4">
+            <a href="#"> <div class="card">
+                <div class="card-image cardimg onhover">
+                  <img src="img/oxford-pants-desktop-1541667534.jpg" />
+                </div>
+              </div></a>
+         </div>
+         <div class="col s12 m4">
+            <a href="#"> <div class="card">
+                <div class="card-image cardimg onhover">
+                  <img src="img/oxford-shorts-desktop-1541396429.jpg" />
+                </div>
+              </div></a>
+         </div>
+         <div class="col s12 m4">
+            <a href="#"> <div class="card">
+                <div class="card-image cardimg onhover">
+                  <img src="img/pique-shirt-desktop-1541396364.jpg" />
+                </div>
+              </div></a>
+         </div>
+         <div class="col s12 m4">
+            <a href="#"> <div class="card">
+                <div class="card-image cardimg onhover">
+                  <img src="img/denim-joggers-desktop-1541396404.jpg" />
+                </div>
+              </div></a>
+         </div>
+      </div></div> 
+  </section>
+
+  <div th:replace =  "commonpart/header::bottom-body-scripts" ></div>
+  <script>    
+  $(document).ready(function(){ 
+    $('.carousel.carousel-slider').carousel({fullWidth: true});
+    $('.carousel').carousel({
+    padding: 200    
+   });
+   $('.modal').modal();
+   $('body').click(function() {
+      $('.searchinput').val("");
+   });
+
+   $('.onhover').hover(function(){
+     $(this).addClass('z-depth-4');
+   }).mouseleave(function(){
+     $(this).removeClass('z-depth-4');
+   });
+   
+   $('input').focus(function() {
+	     $('.flash').addClass('hide');
+	   });
+   
+  // $('#email1').focus(function() {
+	   //  $('.flash').addClass('hide');
+	 //  });
+
+  
+ $('.dropdown-button').dropdown({
+      inDuration: 300,
+      outDuration: 225,
+      constrainWidth: false, // Does not change width of dropdown to that of the activator
+      hover: true, // Activate on hover
+      gutter: 0, // Spacing from edge
+      belowOrigin: true, // Displays dropdown below the button
+      alignment: 'left', // Displays dropdown with edge aligned to the left of button
+      stopPropagation: false // Stops event propagation
+    }
+  );
+
+
+
+   $('.modelclose').click(function(){
+    $('.modal').modal("close");
+   });
+
+   $('.login').focusin(function(){
+	    $(this).addClass("activetab");
+	    $('.signup').removeClass("activetab");
+	    $('.Forgotpass').removeClass("activetab");
+	  })
+
+	    $('.signup').focusin(function(){
+	    $(this).addClass("activetab");
+	    $('.login').removeClass("activetab");
+	    $('.Forgotpass').removeClass("activetab");
+	  })
+	  
+   if($('body').hasClass('emailsent'))
+   {
+	    var $toastContent = $("<span>Email Sent</span>");
+	     Materialize.toast($toastContent, 1200);
+   }
+   
+   if($('#forlogin').hasClass('openlogin'))
+	   {
+	   $('.modal').modal("open");
+	   }
+
+	  
+	  if($('#modal1').hasClass('openthis'))
+		  {
+		       $('#modal1').modal("open");
+		  }
+	 
+	  $('.Forgotpass').focusin(function(){
+	    $(this).addClass("activetab");
+	    $('.login').removeClass("activetab");
+	    $('.signup').removeClass("activetab");
+	  })
+   autoplay();
+   function autoplay() {
+    $('.carousel').carousel('next');
+    setTimeout(autoplay, 4500);
+   } 
+  });
+  </script>
+
+</body>
+
+</html>

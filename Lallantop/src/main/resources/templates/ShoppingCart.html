@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th = "https://www.w3.org/1999/xhtml">
+
+<head th:replace = "commonpart/notsearch::common-header" />
+<body th:classappend="${edited}?edited">
+   <div th:replace = "commonpart/notsearch::Navbar" >
+    </div>
+ 
+ 
+  <section class="section">
+  
+       <div th:if = "${emptyCart}" class="myboxup basic center">
+      <img src="/img/empty-cart-page-doodle.png" style="max-width: 200px;" class="responsive-img" alt="">
+      <p class="basic center">Nothing in the bag Lol ...</p>
+      <p class="basic"><a href="#" class="btn z-depth-0 mycolor waves-effect">continue Shoping</a></p>
+      </div>
+  
+      <div th:if = "${nonemptyCart}" class="myboxup">
+          <div class="row">
+              <div class="col m7 l7 s12" style="margin-bottom: 20px;">
+                <fieldset class="mybox">
+                  <h1 class="basic"  style="margin-bottom: 0 !important;">My Bag</h1>
+                  <p class="basic myvsmallfont" style="margin: 2px 0 10px 0 !important;" th:text= " '( ' + ${cartItemList.size()} +  ' items )' " ></p>
+                  <div class="divider"></div>
+ 
+                  <div data-th-each = "cartItem : ${cartItemList}">
+                  <div class="row" style="margin: 15px 0 15px 0 !important;padding: 0 !important;">
+                       <div class="col s12 m12 l3" style="padding: 0 !important;">
+                         <img th:src=" #{adminPortal} +@{/image/men/} + ${cartItem.men.id} + '.png' " style="margin: 0 !important;" class="responsive-img" alt="">
+                       </div>
+                       <div class="col s12 m12 l9" style="padding: 5px 0 0 20px !important;">
+                            <a th:href="@{/menDetail(id=${cartItem.men.id})}" class="basic black-text mysmallfont" th:text = "${cartItem.men.title}"></a>
+                            <p class="basic myvsmallfont" style="margin:6px 0 0 10px !important;" th:text = "'&#x20B9; '+${cartItem.men.ourPrice}" ></p>
+                            <a href="#" class="black-text"><p class="basic myvsmallfont" style= "margin: 10px 0 0 0 !important;" th:text = " 'size '+${cartItem.size} "></p></a>  
+                            <a href="#" class="black-text"><p class="basic myvsmallfont" style="margin: 0 !important;" th:text = " 'quantity ' + ${cartItem.qty} "></p></a>
+                             <a th:href="@{/shoppingCart/deletecartitem(id = ${cartItem.id})}" class="btn-floating mycolor left tooltipped" data-position="bottom" data-tooltip="cancel product" style="margin: 10px 0 0 0"><i class="material-icons black-text">close</i></a>
+                            <a th:href="@{/shoppingCart/updatecartitem(id = ${cartItem.id})}" class="btn-floating mycolor left tooltipped" data-position="bottom" data-tooltip="update product" style="margin: 10px 0 0 10px"><i class="material-icons black-text">mode_edit</i></a>
+                      </div>
+                  </div>
+                  <div class="divider"></div>
+                </div> 
+                
+                
+                
+                </fieldset>
+                </div>
+              <div class="col m5 l5 s12" >
+                      <div class="mybox" style="background-color: #eee ; padding: 20px 30px 20px 30px ;">
+                        <div >
+                            <p class="basic mysmallfont" >Bag Total <span class="right" th:text = "${shoppingCart.GrandToptal}" ></span> </p>
+                            <p class="basic mysmallfont" >Shipping Charges <span class="right"> Free </span> </p>
+                            <div class="divider"></div>
+                            <p class="basic" >Payble Amount <span class="right" th:text = "${shoppingCart.GrandToptal}"></span> </p>
+                            <div class="divider"></div>
+                           <p class="basic"><a th:href="@{/checkout(id = ${shoppingCart.id})}" class="btn mycolor white-text z-depth-0 waves-effect">Preceed to cheackout ></a></p> 
+                        </div>
+                      </div>
+              </div>
+          </div>
+      </div>
+  </section>
+ 
+  <div th:replace =  "commonpart/notsearch::bottom-body-scripts" ></div>
+  <script>    
+  $(document).ready(function(){ 
+	    $('.collapsible').collapsible();
+	    
+	    if($('body').hasClass('edited'))
+	    {
+	 	    var $toastContent = $("<span>Information Updated</span>");
+	 	     Materialize.toast($toastContent, 1200);
+	    }
+	    
+	    $('.dropdown-button').dropdown({
+	        inDuration: 300,
+	        outDuration: 225,
+	        constrainWidth: false, // Does not change width of dropdown to that of the activator
+	        hover: true, // Activate on hover
+	        gutter: 0, // Spacing from edge
+	        belowOrigin: true, // Displays dropdown below the button
+	        alignment: 'left', // Displays dropdown with edge aligned to the left of button
+	        stopPropagation: false // Stops event propagation
+	      }
+	    );
+	    
+	    // for tabs
+	      $(document).ready(function(){
+	    $('ul.tabs').tabs();
+	  });
+
+	      $(document).ready(function(){ 
+	          $('select').material_select();
+	      });
+
+	  // for opening particular tab
+	   $('ul.tabs').tabs('select_tab', 'addupdatecc');
+
+	  });
+  </script>
+
+</body>
+
+</html>
